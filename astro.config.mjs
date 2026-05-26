@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://nexora.minhojan.world',
+  site: 'https://nexora.minhojan-world.site',
   i18n: {
     defaultLocale: 'ko',
     locales: ['ko', 'en'],
