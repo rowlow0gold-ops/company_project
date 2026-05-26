@@ -65,23 +65,23 @@ const turnstileKey = (site as any).turnstile_site_key as string;
 
         <!-- Google Form (revealed after Turnstile passes) -->
         <div id="form-container" class="hidden">
-          <div class="rounded-2xl overflow-hidden border border-line bg-ink-soft">
-            <iframe
-              id="contact-form-iframe"
-              src=""
-              data-src={formUrl}
-              width="100%"
-              height="900"
-              frameborder="0"
-              marginheight="0"
-              marginwidth="0"
-              loading="lazy"
-              title={page.eyebrow}
-              class="block w-full bg-ink-soft"
-            >
-              {lang === "en" ? "Loading…" : "로딩 중…"}
-            </iframe>
-          </div>
+          <iframe
+            id="contact-form-iframe"
+            src=""
+            data-src={formUrl}
+            width="100%"
+            height="2400"
+            frameborder="0"
+            scrolling="no"
+            marginheight="0"
+            marginwidth="0"
+            loading="lazy"
+            title={page.eyebrow}
+            class="block w-full bg-white rounded-2xl"
+            style="border: 0;"
+          >
+            {lang === "en" ? "Loading…" : "로딩 중…"}
+          </iframe>
           <p class="mt-4 text-xs text-fg-mute">
             {lang === "en"
               ? "Submissions go to NEXORA's response inbox. We reply within 1 business day."
