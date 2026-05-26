@@ -295,21 +295,11 @@ function initHeroVideoRotator() {
 function initHeroAperture() {
   const targets = document.querySelectorAll<HTMLElement>(".hero-aperture");
   if (!targets.length) return;
-
-  const open = () => targets.forEach((el) => el.classList.add("is-open"));
-
-  const loader = document.getElementById("intro-loader");
-  // Loader skipped (subsequent navigation in this session) → reveal now.
-  if (!loader || loader.classList.contains("is-removed")) {
-    requestAnimationFrame(open);
-    return;
-  }
-
-  // Otherwise wait until just after the loader begins its exit transition
-  // (matches the IntroLoader.astro timing: counter runs 1500ms, then a
-  // 150ms beat, then is-leaving is added).
-  const waitFor = 1500 + 150 + 250; // ~1.9s — start opening as the loader slides up
-  setTimeout(open, waitFor);
+  // Trigger on next frame so the initial closed state paints first,
+  // then the transition runs cleanly.
+  requestAnimationFrame(() => {
+    targets.forEach((el) => el.classList.add("is-open"));
+  });
 }
 
 function boot() {
