@@ -1,0 +1,189 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getLang, getAbout, localizePath } from "../../lib/i18n";
+
+export async function getStaticPaths() {
+  return [
+    { params: { section: "why" } },
+    { params: { section: "story" } },
+    { params: { section: "history" } },
+    { params: { section: "ceo" } },
+  ];
+}
+
+const lang = getLang(Astro.url);
+const data = getAbout(lang);
+const section = Astro.params.section as "why" | "story" | "history" | "ceo";
+
+const heads = {
+  ko: {
+    why:     { eyebrow: "Why We Started",    title: "왜 시작했는가." },
+    story:   { eyebrow: "Our Story",         title: "기술이 아니라, 비즈니스를 통합합니다." },
+    history: { eyebrow: "History",           title: "넥소라의 발자취." },
+    ceo:     { eyebrow: "CEO Message",       title: "사장님 한마디." },
+  },
+  en: {
+    why:     { eyebrow: "Why We Started",    title: "Why we started." },
+    story:   { eyebrow: "Our Story",         title: "Not technology — business integration." },
+    history: { eyebrow: "History",           title: "Our journey so far." },
+    ceo:     { eyebrow: "CEO Message",       title: "A note from our CEO." },
+  },
+} as const;
+
+const head = heads[lang][section];
+
+const sectionImages: Record<string, string> = {
+  why:     "https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=1400",
+  story:   "https://images.pexels.com/photos/3184405/pexels-photo-3184405.jpeg?auto=compress&cs=tinysrgb&w=1400",
+  history: "https://images.pexels.com/photos/2387793/pexels-photo-2387793.jpeg?auto=compress&cs=tinysrgb&w=1400",
+  ceo:     "https://images.pexels.com/photos/3184325/pexels-photo-3184325.jpeg?auto=compress&cs=tinysrgb&w=1400",
+};
+const heroImage = sectionImages[section];
+
+const sectionLinks = [
+  { id: "why",     label_ko: "Why We Started", label_en: "Why We Started" },
+  { id: "story",   label_ko: "Our Story",      label_en: "Our Story" },
+  { id: "history", label_ko: "연혁",            label_en: "History" },
+  { id: "ceo",     label_ko: "사장님 한마디",   label_en: "CEO Message" },
+];
+
+// CEO message — paragraphs by language.
+const ceoMessage = {
+  ko: [
+    "안녕하십니까. 넥소라 대표 홍길동입니다.",
+    "넥소라 홈페이지를 찾아주신 모든 분들께 깊은 감사의 인사를 드립니다.",
+    "넥소라는 2019년 설립 이후, 클라우드와 AI를 중심으로 엔터프라이즈의 디지털 전환을 함께 만들어가는 SI 파트너로 성장해왔습니다. 우리는 \"엔지니어링 중심의 SI\"라는 한결같은 원칙 아래, 더 적은 인력으로 더 견고한 시스템을 만드는 방식을 증명해왔습니다.",
+    "기술은 빠르게 변하지만, 좋은 시스템의 본질은 변하지 않는다고 생각합니다. 자동화할 수 있는 것은 자동화하고, 사람이 집중해야 할 것에 집중할 수 있는 환경을 만드는 것 — 그것이 우리가 일을 대하는 방식입니다.",
+    "앞으로도 넥소라는 고객의 비즈니스 성공을 우리의 성공으로 여기며, 정직한 기술과 책임 있는 운영으로 신뢰받는 파트너가 되겠습니다.",
+    "감사합니다.",
+  ],
+  en: [
+    "Hello. I'm Hong Gil-dong, CEO of NEXORA.",
+    "Thank you for visiting NEXORA. I'm grateful for every person who takes the time to look us up.",
+    "Since 2019, NEXORA has grown into an SI partner that helps enterprises transform with cloud and AI at the center. We've followed one principle from day one: engineering-first SI. We've proven, in real engagements, that smaller teams can deliver more reliable systems.",
+    "Technology moves fast, but the fundamentals of a good system don't. We automate what can be automated so people can focus on what only they can do. That's how we work.",
+    "NEXORA treats our customers' success as our own. Through honest engineering and responsible operations, we will keep earning your trust.",
+    "Thank you.",
+  ],
+};
+
+const ceoSign = {
+  ko: { role: "대표이사",  name: "홍길동" },
+  en: { role: "CEO",       name: "Hong Gil-dong" },
+};
+---
+
+<Layout title={head.eyebrow} lang={lang}>
+  <section class="pt-40 pb-20 lg:pt-52 lg:pb-24 border-b border-line">
+    <div class="container-x grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+      <div class="lg:col-span-6">
+        <div class="text-[11px] uppercase tracking-[0.28em] text-accent mb-6">{head.eyebrow}</div>
+        <h1 class="text-[clamp(2.5rem,5vw,4.5rem)] font-semibold leading-[1.05] tracking-[var(--tracking-tighter)] text-balance reveal">
+          {head.title}
+        </h1>
+      </div>
+      {heroImage && (
+        <div class="lg:col-span-6 reveal" style="transition-delay:160ms">
+          <div class="aspect-[5/4] overflow-hidden rounded-2xl border border-line">
+            <img src={heroImage} alt={head.eyebrow} class="w-full h-full object-cover" loading="eager" decoding="async" />
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Section tabs -->
+  <section class="py-6 border-b border-line">
+    <div class="container-x flex flex-wrap gap-2">
+      {sectionLinks.map((s) => (
+        <a
+          href={localizePath(`/about/${s.id}`, lang)}
+          class:list={[
+            "px-4 py-2 rounded-full text-sm border transition-colors",
+            s.id === section
+              ? "border-fg text-fg"
+              : "border-line text-fg-mute hover:text-fg hover:border-line-strong",
+          ]}
+        >
+          {lang === "en" ? s.label_en : s.label_ko}
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="py-24 lg:py-32">
+    <div class="container-x grid grid-cols-1 lg:grid-cols-12 gap-12">
+      {section === "why" && (
+        <>
+          <div class="lg:col-span-4 reveal">
+            <div class="text-[11px] uppercase tracking-[0.28em] text-fg-mute mb-4">Why</div>
+            <h2 class="text-3xl lg:text-4xl font-semibold tracking-[var(--tracking-tight)]">{data.hero_title}</h2>
+          </div>
+          <div class="lg:col-span-8 text-fg-70 leading-[1.85] space-y-6 text-lg" data-reveal-children>
+            <p>{data.hero_body}</p>
+            {data.story_body.map((p) => <p>{p}</p>)}
+          </div>
+        </>
+      )}
+
+      {section === "story" && (
+        <>
+          <div class="lg:col-span-4 reveal">
+            <div class="text-[11px] uppercase tracking-[0.28em] text-fg-mute mb-4">{data.story_eyebrow}</div>
+            <h2 class="text-3xl lg:text-4xl font-semibold tracking-[var(--tracking-tight)]">{data.story_title}</h2>
+          </div>
+          <div class="lg:col-span-8 text-fg-70 leading-[1.85] space-y-6 text-lg" data-reveal-children>
+            {data.story_body.map((p) => <p>{p}</p>)}
+          </div>
+        </>
+      )}
+
+      {section === "history" && (
+        <div class="lg:col-span-12">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-2" data-reveal-children>
+            {data.history.map((it) => (
+              <div class="flex gap-8 py-6 border-b border-line">
+                <div class="w-20 shrink-0 text-2xl font-semibold tracking-[var(--tracking-tight)]">{it.year}</div>
+                <div class="text-fg-soft leading-relaxed pt-1">{it.body}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      {section === "ceo" && (
+        <div class="lg:col-span-12">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+            <!-- Portrait + signature -->
+            <aside class="lg:col-span-4 reveal">
+              <div class="aspect-[4/5] overflow-hidden rounded-2xl border border-line">
+                <img
+                  src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=900"
+                  alt={ceoSign[lang].name}
+                  loading="eager"
+                  decoding="async"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class="mt-6">
+                <div class="text-[11px] uppercase tracking-[0.22em] text-fg-mute">{ceoSign[lang].role}</div>
+                <div class="mt-1 text-xl font-semibold tracking-[var(--tracking-tight)]">{ceoSign[lang].name}</div>
+              </div>
+            </aside>
+
+            <!-- Message -->
+            <article class="lg:col-span-8 text-fg-70 leading-[1.95] space-y-5 text-lg" data-reveal-children>
+              {ceoMessage[lang].map((para) => <p>{para}</p>)}
+
+              <div class="pt-6 mt-4 border-t border-line flex items-baseline gap-4">
+                <span class="text-fg-mute text-sm">{ceoSign[lang].role}</span>
+                <span class="text-2xl font-semibold tracking-[var(--tracking-tight)] text-fg italic" style="font-family: 'Pretendard Variable', serif;">
+                  {ceoSign[lang].name}
+                </span>
+              </div>
+            </article>
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+</Layout>

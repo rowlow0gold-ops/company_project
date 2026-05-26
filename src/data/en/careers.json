@@ -1,0 +1,15 @@
+{
+  "eyebrow": "Careers",
+  "hero_title": "Build the next system with us.",
+  "hero_body": "NEXORA is a small team where autonomy and responsibility are in balance. We hire people who care about building good systems.",
+  "all_openings_label": "View all openings on JobKorea",
+  "all_openings_url": "https://www.jobkorea.co.kr/Search/?stext=NEXORA",
+  "external_label": "Open application page",
+  "positions": [
+    { "team": "Cloud Engineering", "role": "Senior Cloud Architect (AWS/Azure)", "location": "Seoul · Full-time", "url": "https://www.jobkorea.co.kr/Search/?stext=NEXORA+Cloud+Architect" },
+    { "team": "Data & AI",         "role": "MLOps Engineer",                     "location": "Seoul · Full-time", "url": "https://www.jobkorea.co.kr/Search/?stext=NEXORA+MLOps" },
+    { "team": "Enterprise SI",     "role": "Project Manager (SI / Finance)",     "location": "Seoul · Full-time", "url": "https://www.saramin.co.kr/zf_user/search?searchword=NEXORA+PM" },
+    { "team": "SRE / Operate",     "role": "Site Reliability Engineer",          "location": "Daegu · Full-time", "url": "https://www.jobkorea.co.kr/Search/?stext=NEXORA+SRE" },
+    { "team": "Sales",             "role": "Enterprise Account Executive",       "location": "Seoul · Full-time", "url": "https://www.wanted.co.kr/search?query=NEXORA" }
+  ]
+}

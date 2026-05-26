@@ -1,0 +1,19 @@
+{
+  "eyebrow": "About NEXORA",
+  "hero_title": "Your system shapes your business.",
+  "hero_body": "Since 2019, NEXORA has delivered cloud transformation, data infrastructure, and AI adoption projects with over 100 enterprise clients. We build systems that run a business in its most efficient form — not technology for technology's sake.",
+  "story_eyebrow": "Our Story",
+  "story_title": "Why we started.",
+  "story_body": [
+    "Korea's large SI market is still structured around people and time. The same problems get solved every year, operations sit outside the systems that run them, and data lives in silos. These are the real obstacles to digital transformation.",
+    "NEXORA brings SI back into the engineering domain through automation and standardization. With cloud-native and AI as our tools, we prove that fewer people can build more reliable systems."
+  ],
+  "history_eyebrow": "History",
+  "history": [
+    { "year": "2026", "body": "Series A closed (KRW 1.2B) · Daegu branch opened" },
+    { "year": "2025", "body": "AWS Partner Network (Select Tier) · KRW 1.8B cumulative revenue" },
+    { "year": "2024", "body": "AI division spun out · NEXORA AI Lab launched" },
+    { "year": "2022", "body": "Seed round closed (KRW 400M) · 30+ projects delivered" },
+    { "year": "2019", "body": "Company founded · Cloud migration practice launched" }
+  ]
+}

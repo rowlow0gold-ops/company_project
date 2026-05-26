@@ -1,0 +1,20 @@
+{
+  "name": "NEXORA",
+  "name_ko": "넥소라",
+  "tagline_ko": "차세대 시스템을 설계합니다",
+  "tagline_en": "Architecting what runs next.",
+  "description": "엔터프라이즈 시스템 통합 · 클라우드 전환 · AI 데이터 플랫폼 전문 SI 기업",
+  "ceo": "홍길동",
+  "biz_reg": "000-00-00000",
+  "email": "hello@nexora.example",
+  "phone": "02-0000-0000",
+  "address_hq": "서울특별시 강남구 (대표 사옥 주소 입력)",
+  "address_branch": "대구광역시 북구 (지사 주소 입력)",
+  "google_form_url": "https://docs.google.com/forms/d/e/1FAIpQLSdYyHQIEwaWj4cK5TliakfYcRzgjlQ2jAuJGJalqHR8ebd8mw/viewform?embedded=true",
+  "turnstile_site_key": "0x4AAAAAADWoXsTLI8WCKWsC",
+  "social": {
+    "linkedin": "https://www.linkedin.com/company/nexora-placeholder",
+    "github": "https://github.com/nexora-placeholder",
+    "instagram": ""
+  }
+}

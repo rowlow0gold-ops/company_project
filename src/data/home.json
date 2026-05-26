@@ -1,0 +1,34 @@
+{
+  "hero": {
+    "video": "https://videos.pexels.com/video-files/8637697/8637697-hd_1280_720_25fps.mp4",
+    "bgVideos": [
+      "https://videos.pexels.com/video-files/1826770/1826770-hd_1280_720_24fps.mp4",
+      "https://videos.pexels.com/video-files/14458140/14458140-hd_1280_720_24fps.mp4",
+      "https://videos.pexels.com/video-files/12166434/12166434-hd_1280_720_24fps.mp4"
+    ],
+    "image": "",
+    "eyebrow": "SI · Cloud · AI",
+    "title_ko": "다음 세대의 시스템을\n설계하고 운영합니다.",
+    "title_en": "We build the systems that run what's next.",
+    "subtitle": "넥소라는 클라우드 전환, 데이터 플랫폼, AI 솔루션을 중심으로 엔터프라이즈의 디지털 전환을 이끄는 SI 파트너입니다.",
+    "cta_label": "서비스 살펴보기",
+    "cta_link": "/services"
+  },
+  "intro": {
+    "label": "About NEXORA",
+    "title": "기술이 아니라,\n비즈니스를 통합합니다.",
+    "body": "넥소라는 단순한 시스템 구축을 넘어, 고객의 업무 흐름과 데이터를 가장 효율적인 형태로 재설계합니다. 클라우드 네이티브 아키텍처와 AI 기반 자동화를 통해 엔터프라이즈의 운영 비용을 절감하고, 새로운 비즈니스 기회를 만들어냅니다."
+  },
+  "stats": [
+    { "value": "120+", "label": "엔터프라이즈 프로젝트" },
+    { "value": "8",    "label": "산업 도메인" },
+    { "value": "24/7", "label": "운영 SLA" },
+    { "value": "99.95%","label": "가용성 보장" }
+  ],
+  "cta": {
+    "title": "함께 만들어갈 다음 시스템",
+    "subtitle": "프로젝트 문의나 기술 검토가 필요하시면 언제든 연락주세요.",
+    "label": "문의하기",
+    "link": "/contact"
+  }
+}

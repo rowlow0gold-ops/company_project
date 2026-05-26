@@ -1,0 +1,20 @@
+{
+  "name": "NEXORA",
+  "name_ko": "NEXORA Systems",
+  "tagline_ko": "Architecting the systems that run what's next.",
+  "tagline_en": "Architecting the systems that run what's next.",
+  "description": "Enterprise system integration, cloud transformation, and AI/data platform partner.",
+  "ceo": "John Doe",
+  "biz_reg": "000-00-00000",
+  "email": "hello@nexora.example",
+  "phone": "+82-2-0000-0000",
+  "address_hq": "(HQ address — Gangnam-gu, Seoul, Korea)",
+  "address_branch": "(Branch address — Buk-gu, Daegu, Korea)",
+  "google_form_url": "https://docs.google.com/forms/d/e/1FAIpQLSdYyHQIEwaWj4cK5TliakfYcRzgjlQ2jAuJGJalqHR8ebd8mw/viewform?embedded=true",
+  "turnstile_site_key": "0x4AAAAAADWoXsTLI8WCKWsC",
+  "social": {
+    "linkedin": "https://www.linkedin.com/company/nexora-placeholder",
+    "github": "https://github.com/nexora-placeholder",
+    "instagram": ""
+  }
+}

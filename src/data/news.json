@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "id": 4,
+      "category": "press",
+      "category_label": "보도자료",
+      "date": "2026-05-12",
+      "title": "넥소라, 국내 대형 제조사 그룹사 통합 클라우드 마이그레이션 사업 수주",
+      "excerpt": "엔터프라이즈 SI 기업 넥소라는 국내 주요 제조 기업의 13개 계열사를 아우르는 멀티 클라우드 전환 프로젝트를 수주했다고 12일 밝혔다. 사업 규모는 약 230억 원으로, 2027년 상반기까지 단계적으로 진행될 예정이다.",
+      "image": "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "link": "/news/press/1"
+    },
+    {
+      "id": 3,
+      "category": "award",
+      "category_label": "수상",
+      "date": "2026-04-03",
+      "title": "2026 대한민국 SW산업대상 \"올해의 SI 기업\" 대상 수상",
+      "excerpt": "넥소라가 2026 대한민국 SW산업대상에서 올해의 SI 기업 부문 대상을 수상했다. 심사위원단은 \"AI와 클라우드를 결합한 차세대 SI 모델을 제시한 점\"을 높이 평가했다.",
+      "image": "https://images.pexels.com/photos/5380642/pexels-photo-5380642.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "link": "/news/award/1"
+    },
+    {
+      "id": 2,
+      "category": "conference",
+      "category_label": "컨퍼런스",
+      "date": "2026-03-18",
+      "title": "AWS Summit Seoul 2026 키노트 \"엔터프라이즈 AI 인프라의 미래\" 발표",
+      "excerpt": "박정호 대표가 AWS Summit Seoul 2026 키노트 세션에서 \"엔터프라이즈 AI 인프라의 미래\"를 주제로 발표한다. 행사는 코엑스에서 5월 28~29일 양일간 개최된다.",
+      "image": "https://images.pexels.com/photos/1181676/pexels-photo-1181676.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "link": "/news/conference/1"
+    },
+    {
+      "id": 1,
+      "category": "press",
+      "category_label": "보도자료",
+      "date": "2026-02-09",
+      "title": "넥소라, 시리즈 B 220억 원 투자 유치… 글로벌 진출 가속",
+      "excerpt": "넥소라가 시리즈 B 라운드에서 220억 원 규모의 투자를 유치하며, 동남아시아 진출을 위한 거점 확보에 나선다.",
+      "image": "https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "link": "/news/press/2"
+    }
+  ]
+}

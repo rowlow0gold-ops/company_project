@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "id": 4,
+      "category": "press",
+      "category_label": "Press",
+      "date": "2026-05-12",
+      "title": "NEXORA wins multi-cloud migration contract from a major Korean manufacturer",
+      "excerpt": "Enterprise SI firm NEXORA announced on the 12th that it has won a multi-cloud transformation project spanning 13 affiliates of a leading Korean manufacturing group. The contract is valued at roughly KRW 23 billion and will run in phases through H1 2027.",
+      "image": "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "link": "/en/news/press/1"
+    },
+    {
+      "id": 3,
+      "category": "award",
+      "category_label": "Award",
+      "date": "2026-04-03",
+      "title": "Awarded \"SI Company of the Year\" at the 2026 Korea SW Industry Awards",
+      "excerpt": "NEXORA received the grand prize in the SI Company of the Year category at the 2026 Korea SW Industry Awards. The jury cited \"a next-generation SI model combining AI and cloud.\"",
+      "image": "https://images.pexels.com/photos/5380642/pexels-photo-5380642.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "link": "/en/news/award/1"
+    },
+    {
+      "id": 2,
+      "category": "conference",
+      "category_label": "Conference",
+      "date": "2026-03-18",
+      "title": "AWS Summit Seoul 2026 keynote: \"The Future of Enterprise AI Infrastructure\"",
+      "excerpt": "CEO Sungho Park will present \"The Future of Enterprise AI Infrastructure\" in the AWS Summit Seoul 2026 keynote session, held at COEX from May 28–29.",
+      "image": "https://images.pexels.com/photos/1181676/pexels-photo-1181676.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "link": "/en/news/conference/1"
+    },
+    {
+      "id": 1,
+      "category": "press",
+      "category_label": "Press",
+      "date": "2026-02-09",
+      "title": "NEXORA closes KRW 22B Series B — Southeast Asia expansion accelerates",
+      "excerpt": "NEXORA closed a KRW 22 billion Series B round, securing footholds for its Southeast Asia expansion.",
+      "image": "https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "link": "/en/news/press/2"
+    }
+  ]
+}

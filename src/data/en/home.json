@@ -1,0 +1,34 @@
+{
+  "hero": {
+    "video": "https://videos.pexels.com/video-files/8637697/8637697-hd_1280_720_25fps.mp4",
+    "bgVideos": [
+      "https://videos.pexels.com/video-files/1826770/1826770-hd_1280_720_24fps.mp4",
+      "https://videos.pexels.com/video-files/14458140/14458140-hd_1280_720_24fps.mp4",
+      "https://videos.pexels.com/video-files/12166434/12166434-hd_1280_720_24fps.mp4"
+    ],
+    "image": "",
+    "eyebrow": "SI · Cloud · AI",
+    "title_ko": "We build the systems\nthat run what's next.",
+    "title_en": "We build the systems\nthat run what's next.",
+    "subtitle": "NEXORA is the SI partner driving enterprise transformation across cloud, data platforms, and AI solutions.",
+    "cta_label": "Explore services",
+    "cta_link": "/en/services"
+  },
+  "intro": {
+    "label": "About NEXORA",
+    "title": "Not just technology —\nwe integrate the business.",
+    "body": "NEXORA goes beyond system implementation. We redesign your operations and data flows in their most efficient form. Cloud-native architecture and AI-driven automation cut operating costs and open new business opportunities."
+  },
+  "stats": [
+    { "value": "120+",    "label": "Enterprise projects" },
+    { "value": "8",       "label": "Industry domains" },
+    { "value": "24/7",    "label": "Operations SLA" },
+    { "value": "99.95%",  "label": "Availability" }
+  ],
+  "cta": {
+    "title": "The next system, together.",
+    "subtitle": "Reach out anytime to discuss a project or a technical review.",
+    "label": "Get in touch",
+    "link": "/en/contact"
+  }
+}

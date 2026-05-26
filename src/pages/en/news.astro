@@ -1,0 +1,41 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getLang, getNews, getNewsPage } from "../../lib/i18n";
+
+const lang = getLang(Astro.url);
+const news = getNews(lang);
+const page = getNewsPage(lang);
+
+const formatDate = (iso: string) => {
+  const d = new Date(iso);
+  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")}`;
+};
+---
+
+<Layout title={page.eyebrow} lang={lang}>
+  <section class="pt-40 pb-20 lg:pt-52 lg:pb-28 border-b border-line">
+    <div class="container-x">
+      <div class="text-[11px] uppercase tracking-[0.28em] text-accent mb-6">{page.eyebrow}</div>
+      <h1 class="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[1.05] tracking-[var(--tracking-tighter)] max-w-4xl reveal">
+        {page.hero_title}
+      </h1>
+    </div>
+  </section>
+
+  <section class="py-16 lg:py-24">
+    <div class="container-x">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-line border border-line" data-reveal-children>
+        {news.items.map((n) => (
+          <a href={n.link} class="group bg-ink p-8 lg:p-10 hover:bg-ink-soft transition-colors flex flex-col gap-5 min-h-[18rem]">
+            <div class="flex items-center gap-3 text-[11px] uppercase tracking-[0.22em]">
+              <span class="text-accent">{n.category_label}</span>
+              <span class="text-fg-mute">{formatDate(n.date)}</span>
+            </div>
+            <h3 class="text-xl lg:text-2xl font-semibold leading-[1.25] tracking-[var(--tracking-tight)] text-balance">{n.title}</h3>
+            <p class="text-sm text-fg-65 leading-relaxed line-clamp-3 mt-auto">{n.excerpt}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

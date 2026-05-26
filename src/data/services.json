@@ -1,0 +1,36 @@
+{
+  "services": [
+    {
+      "id": "cloud",
+      "label": "01 — Cloud & Infra",
+      "title": "클라우드 인프라",
+      "summary": "AWS · Azure · GCP 기반의 확장 가능한 인프라를 설계하고 마이그레이션합니다. 멀티 클라우드 거버넌스와 비용 최적화까지 한 번에 책임집니다.",
+      "image": "https://images.pexels.com/photos/1148820/pexels-photo-1148820.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "tags": ["AWS", "Azure", "GCP", "Kubernetes", "Terraform"]
+    },
+    {
+      "id": "data-ai",
+      "label": "02 — Data & AI",
+      "title": "데이터 · AI 플랫폼",
+      "summary": "데이터 레이크하우스부터 MLOps 파이프라인까지, 의사결정을 자동화하는 데이터 인프라를 구축합니다. LLM 기반 사내 어시스턴트 도입을 지원합니다.",
+      "image": "https://images.pexels.com/photos/8438918/pexels-photo-8438918.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "tags": ["Lakehouse", "MLOps", "LLM", "RAG", "Vector DB"]
+    },
+    {
+      "id": "si",
+      "label": "03 — Enterprise SI",
+      "title": "엔터프라이즈 SI",
+      "summary": "ERP · CRM · 그룹웨어 등 기간계 시스템을 통합 설계하고 구축합니다. 레거시 모더나이제이션과 마이크로서비스 분해를 함께 진행합니다.",
+      "image": "https://images.pexels.com/photos/3184325/pexels-photo-3184325.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "tags": ["ERP", "CRM", "SAP", "Modernization"]
+    },
+    {
+      "id": "ops",
+      "label": "04 — Operate",
+      "title": "운영 · 유지보수",
+      "summary": "24/7 모니터링, 인시던트 대응, SLA 기반의 안정적인 시스템 운영을 책임집니다. SRE 방법론으로 가용성과 비용을 동시에 관리합니다.",
+      "image": "https://images.pexels.com/photos/4218714/pexels-photo-4218714.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "tags": ["SRE", "Observability", "SLA", "Incident"]
+    }
+  ]
+}

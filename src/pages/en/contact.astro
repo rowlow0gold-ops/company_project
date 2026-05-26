@@ -1,0 +1,130 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getLang, getSite, getContactPage, t } from "../../lib/i18n";
+
+const lang = getLang(Astro.url);
+const site = getSite(lang);
+const page = getContactPage(lang);
+
+const formUrl = (site as any).google_form_url as string;
+const turnstileKey = (site as any).turnstile_site_key as string;
+---
+
+<Layout title={page.eyebrow} lang={lang}>
+  <section class="pt-40 pb-20 lg:pt-52 lg:pb-28 border-b border-line">
+    <div class="container-x grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+      <div class="lg:col-span-6">
+        <div class="text-[11px] uppercase tracking-[0.28em] text-accent mb-6">{page.eyebrow}</div>
+        <h1 class="text-[clamp(2.5rem,5vw,4.5rem)] font-semibold leading-[1.05] tracking-[var(--tracking-tighter)] text-balance reveal">
+          {page.hero_title}
+        </h1>
+        <p class="mt-8 text-lg text-fg-70 leading-relaxed reveal" style="transition-delay:120ms">
+          {page.hero_body}
+        </p>
+      </div>
+      <div class="lg:col-span-6 reveal" style="transition-delay:200ms">
+        <div class="aspect-[5/4] overflow-hidden rounded-2xl border border-line">
+          <img src="https://images.pexels.com/photos/1181403/pexels-photo-1181403.jpeg?auto=compress&cs=tinysrgb&w=1400" alt={page.eyebrow} class="w-full h-full object-cover" loading="eager" decoding="async" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 lg:py-28">
+    <div class="container-x grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+      <!-- Form column: gated by Turnstile, then Google Form iframe -->
+      <div class="lg:col-span-7">
+        <div
+          id="form-gate"
+          class="rounded-2xl border border-line bg-ink-soft p-8 lg:p-10 flex flex-col items-center text-center gap-6"
+        >
+          <div class="w-12 h-12 rounded-full grid place-items-center bg-ink border border-line">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7l3-7z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <p class="text-lg font-medium">
+              {lang === "en" ? "Verify you're human" : "사람인지 확인해주세요"}
+            </p>
+            <p class="mt-2 text-sm text-fg-65 max-w-sm mx-auto">
+              {lang === "en"
+                ? "We use Cloudflare Turnstile to prevent automated submissions before loading the form."
+                : "자동화된 봇 차단을 위해 Cloudflare Turnstile로 검증한 뒤 문의 양식을 표시합니다."}
+            </p>
+          </div>
+
+          <!-- Cloudflare Turnstile widget -->
+          <div
+            class="cf-turnstile"
+            data-sitekey={turnstileKey}
+            data-callback="onTurnstileSuccess"
+            data-theme="dark"
+          ></div>
+        </div>
+
+        <!-- Google Form (revealed after Turnstile passes) -->
+        <div id="form-container" class="hidden">
+          <div class="rounded-2xl overflow-hidden border border-line bg-ink-soft">
+            <iframe
+              id="contact-form-iframe"
+              src=""
+              data-src={formUrl}
+              width="100%"
+              height="900"
+              frameborder="0"
+              marginheight="0"
+              marginwidth="0"
+              loading="lazy"
+              title={page.eyebrow}
+              class="block w-full bg-ink-soft"
+            >
+              {lang === "en" ? "Loading…" : "로딩 중…"}
+            </iframe>
+          </div>
+          <p class="mt-4 text-xs text-fg-mute">
+            {lang === "en"
+              ? "Submissions go to NEXORA's response inbox. We reply within 1 business day."
+              : "제출된 문의는 넥소라 응답 메일함으로 전송되며, 1영업일 이내에 회신드립니다."}
+          </p>
+        </div>
+      </div>
+
+      <aside class="lg:col-span-5 space-y-10">
+        <div>
+          <div class="text-[11px] uppercase tracking-[0.22em] text-fg-mute mb-3">{t(lang, "contact_email_label")}</div>
+          <a href={`mailto:${site.email}`} class="text-2xl font-semibold tracking-[var(--tracking-tight)] hover:text-accent transition-colors">{site.email}</a>
+        </div>
+        <div>
+          <div class="text-[11px] uppercase tracking-[0.22em] text-fg-mute mb-3">{t(lang, "contact_phone_label")}</div>
+          <a href={`tel:${site.phone.replace(/[^0-9+]/g, "")}`} class="text-2xl font-semibold tracking-[var(--tracking-tight)] hover:text-accent transition-colors">{site.phone}</a>
+        </div>
+        <div>
+          <div class="text-[11px] uppercase tracking-[0.22em] text-fg-mute mb-3">{t(lang, "footer_hq")}</div>
+          <div class="text-fg-soft leading-relaxed">{site.address_hq}</div>
+        </div>
+        <div>
+          <div class="text-[11px] uppercase tracking-[0.22em] text-fg-mute mb-3">{t(lang, "footer_branch")}</div>
+          <div class="text-fg-soft leading-relaxed">{site.address_branch}</div>
+        </div>
+      </aside>
+    </div>
+  </section>
+</Layout>
+
+<!-- Cloudflare Turnstile widget script -->
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+<script is:inline>
+  // Reveal Google Form iframe once Turnstile succeeds.
+  window.onTurnstileSuccess = function (token) {
+    const gate   = document.getElementById("form-gate");
+    const wrap   = document.getElementById("form-container");
+    const iframe = document.getElementById("contact-form-iframe");
+    if (iframe && iframe.dataset && iframe.dataset.src) {
+      iframe.src = iframe.dataset.src;
+    }
+    if (gate) gate.classList.add("hidden");
+    if (wrap) wrap.classList.remove("hidden");
+  };
+</script>

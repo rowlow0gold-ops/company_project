@@ -1,0 +1,54 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getLang, getAbout } from "../lib/i18n";
+
+const lang = getLang(Astro.url);
+const data = getAbout(lang);
+---
+
+<Layout title={data.eyebrow} lang={lang}>
+  <section class="pt-40 pb-24 lg:pt-52 lg:pb-32 border-b border-line">
+    <div class="container-x grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+      <div class="lg:col-span-6">
+        <div class="text-[11px] uppercase tracking-[0.28em] text-accent mb-6">{data.eyebrow}</div>
+        <h1 class="text-[clamp(2.5rem,5vw,4.5rem)] font-semibold leading-[1.05] tracking-[var(--tracking-tighter)] text-balance reveal">
+          {data.hero_title}
+        </h1>
+        <p class="mt-8 text-lg text-fg-70 leading-relaxed text-pretty reveal" style="transition-delay:120ms">
+          {data.hero_body}
+        </p>
+      </div>
+      <div class="lg:col-span-6 reveal" style="transition-delay:200ms">
+        <div class="aspect-[5/4] overflow-hidden rounded-2xl border border-line">
+          <img src="https://images.pexels.com/photos/3184405/pexels-photo-3184405.jpeg?auto=compress&cs=tinysrgb&w=1400" alt={data.eyebrow} class="w-full h-full object-cover" loading="eager" decoding="async" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 lg:py-32">
+    <div class="container-x grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <div class="lg:col-span-4 reveal">
+        <div class="text-[11px] uppercase tracking-[0.28em] text-fg-mute mb-4">{data.story_eyebrow}</div>
+        <h2 class="text-3xl lg:text-4xl font-semibold tracking-[var(--tracking-tight)]">{data.story_title}</h2>
+      </div>
+      <div class="lg:col-span-8 text-fg-70 leading-[1.85] space-y-6 text-lg" data-reveal-children>
+        {data.story_body.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 lg:py-32 border-t border-line">
+    <div class="container-x">
+      <div class="text-[11px] uppercase tracking-[0.28em] text-accent mb-6 reveal">{data.history_eyebrow}</div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-10" data-reveal-children>
+        {data.history.map((it) => (
+          <div class="flex gap-8 py-6 border-b border-line">
+            <div class="w-20 shrink-0 text-2xl font-semibold tracking-[var(--tracking-tight)]">{it.year}</div>
+            <div class="text-fg-soft leading-relaxed pt-1">{it.body}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

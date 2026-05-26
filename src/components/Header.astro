@@ -1,0 +1,435 @@
+---
+import { t, switchLangHref, localizePath, type Lang } from "../lib/i18n";
+
+interface Props {
+  transparent?: boolean;
+  lang: Lang;
+}
+const { transparent = false, lang } = Astro.props;
+
+const pathname = Astro.url.pathname;
+const otherLang: Lang = lang === "ko" ? "en" : "ko";
+const switchHref = switchLangHref(pathname, otherLang);
+
+type SubLink = { label_ko: string; label_en: string; href: string };
+type NavItem  = {
+  key: "nav_about" | "nav_services" | "nav_news" | "nav_careers" | "nav_contact";
+  href: string;
+  children?: SubLink[];
+};
+
+const nav: NavItem[] = [
+  {
+    key: "nav_about",
+    href: "/about",
+    children: [
+      { label_ko: "Why We Started", label_en: "Why We Started", href: "/about/why" },
+      { label_ko: "Our Story",      label_en: "Our Story",      href: "/about/story" },
+      { label_ko: "연혁",            label_en: "History",        href: "/about/history" },
+      { label_ko: "사장님 한마디",    label_en: "CEO Message",    href: "/about/ceo" },
+    ],
+  },
+  {
+    key: "nav_services",
+    href: "/services",
+    children: [
+      { label_ko: "Cloud · Infra",      label_en: "Cloud · Infra",      href: "/services/cloud" },
+      { label_ko: "Data · AI",          label_en: "Data · AI",          href: "/services/data-ai" },
+      { label_ko: "Enterprise SI",      label_en: "Enterprise SI",      href: "/services/si" },
+      { label_ko: "운영 · 유지보수",     label_en: "Operate · Maintain", href: "/services/ops" },
+    ],
+  },
+  {
+    key: "nav_news",
+    href: "/news",
+    children: [
+      { label_ko: "보도자료",            label_en: "Press",       href: "/news/press" },
+      { label_ko: "전시회 · 컨퍼런스",   label_en: "Conference",  href: "/news/conference" },
+      { label_ko: "수상",                label_en: "Awards",      href: "/news/award" },
+    ],
+  },
+  {
+    key: "nav_careers",
+    href: "/careers",
+    children: [
+      { label_ko: "채용공고",                label_en: "Open Positions",  href: "/careers" },
+      { label_ko: "잡코리아에서 보기",        label_en: "View on JobKorea", href: "https://www.jobkorea.co.kr/Search/?stext=NEXORA" },
+    ],
+  },
+  { key: "nav_contact", href: "/contact" },
+];
+
+const subLabel = (s: SubLink) => (lang === "en" ? s.label_en : s.label_ko);
+const isExternal = (href: string) => /^https?:\/\//.test(href);
+
+const fullMenuLabel = lang === "en" ? "Menu" : "전체 메뉴";
+const fullMenuCloseLabel = lang === "en" ? "Close menu" : "메뉴 닫기";
+---
+
+<header
+  data-transparent={transparent}
+  class:list={[
+    "site-header header-slide fixed top-9 inset-x-0 z-50 transition-colors duration-300",
+    transparent ? "bg-transparent" : "",
+  ]}
+  style={transparent
+    ? ""
+    : "background-color: color-mix(in oklab, var(--color-ink) 85%, transparent); border-bottom: 1px solid var(--color-line);"}
+  id="site-header"
+>
+  <div class="container-x flex items-center justify-between h-16 lg:h-20">
+    <a
+      href={localizePath("/", lang)}
+      class="text-xl lg:text-2xl font-semibold tracking-[var(--tracking-tight)] flex items-baseline gap-2"
+    >
+      <span>NEXORA</span>
+      <span class="text-[10px] uppercase tracking-[0.2em] text-fg-mute hidden sm:inline">Systems</span>
+    </a>
+
+    <nav class="hidden lg:flex items-stretch h-full">
+      {nav.map((item) => (
+        <div class="nav-item relative h-full flex items-center">
+          <a
+            href={localizePath(item.href, lang)}
+            class="px-4 h-full flex items-center text-sm text-fg-soft hover:text-fg transition-colors relative"
+          >
+            {t(lang, item.key)}
+            <span class="nav-underline absolute left-4 right-4 -bottom-px h-px bg-[var(--color-accent)] origin-left scale-x-0 transition-transform"></span>
+          </a>
+
+          {item.children && (
+            <div class="dropdown absolute left-0 top-full pt-3 w-[16rem]">
+              <div class="dropdown-panel">
+                <ul class="py-3">
+                  {item.children.map((sub) => (
+                    <li>
+                      <a
+                        href={isExternal(sub.href) ? sub.href : localizePath(sub.href, lang)}
+                        target={isExternal(sub.href) ? "_blank" : undefined}
+                        rel={isExternal(sub.href) ? "noreferrer" : undefined}
+                        class="dropdown-link flex items-center justify-between gap-3 px-5 py-3 text-sm text-fg-soft hover:text-fg transition-colors"
+                      >
+                        <span>{subLabel(sub)}</span>
+                        {isExternal(sub.href) ? (
+                          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" class="text-fg-faint shrink-0"><path d="M7 17L17 7M17 7H8M17 7v9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        ) : (
+                          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" class="text-fg-faint shrink-0 dropdown-arrow"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        )}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        data-theme-toggle
+        data-label-dark={t(lang, "theme_dark")}
+        data-label-light={t(lang, "theme_light")}
+        aria-label={t(lang, "theme_toggle")}
+        class="hidden sm:inline-flex items-center justify-center w-10 h-10 rounded-full border border-line text-fg-soft hover:text-fg hover:border-line-strong transition-colors"
+      >
+        <svg class="theme-icon-dark" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <svg class="theme-icon-light" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        <span class="sr-only" data-theme-label>{t(lang, "theme_dark")}</span>
+      </button>
+
+      <a
+        href={switchHref}
+        aria-label={t(lang, "lang_label")}
+        class="hidden sm:inline-flex items-center text-xs uppercase tracking-[0.18em] border border-line rounded-full overflow-hidden"
+      >
+        <span class={`px-3 py-2 ${lang === "ko" ? "bg-ink-soft text-fg" : "text-fg-mute"}`}>KR</span>
+        <span class={`px-3 py-2 border-l border-line ${lang === "en" ? "bg-ink-soft text-fg" : "text-fg-mute"}`}>EN</span>
+      </a>
+
+      <!-- Full menu trigger (curestream-style sitemap button) -->
+      <button
+        id="full-menu-toggle"
+        type="button"
+        aria-label={fullMenuLabel}
+        aria-expanded="false"
+        aria-controls="full-menu"
+        class="hidden sm:inline-flex items-center gap-2 px-3 py-2 rounded-full border border-line text-fg-soft hover:text-fg hover:border-line-strong transition-colors text-xs uppercase tracking-[0.18em]"
+      >
+        <span class="full-menu-bars inline-flex flex-col gap-1">
+          <span class="block w-4 h-px bg-current"></span>
+          <span class="block w-4 h-px bg-current"></span>
+          <span class="block w-4 h-px bg-current"></span>
+        </span>
+        <span>{fullMenuLabel}</span>
+      </button>
+
+      <a
+        href={localizePath("/contact", lang)}
+        class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full btn-primary text-sm font-medium"
+      >
+        {t(lang, "inquiry_btn")}
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+
+      <button id="menu-toggle" type="button" class="lg:hidden p-2 -mr-2" aria-label={t(lang, "menu_open")}>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu (compact, for narrow screens) -->
+  <div
+    id="mobile-menu"
+    class="lg:hidden hidden border-t border-line max-h-[calc(100vh-4rem-2.25rem)] overflow-y-auto"
+    style="background-color: color-mix(in oklab, var(--color-ink) 95%, transparent); backdrop-filter: blur(12px);"
+  >
+    <div class="container-x py-6 flex flex-col gap-1">
+      {nav.map((item) => (
+        <div class="border-b border-line last:border-0 py-2">
+          <a
+            href={localizePath(item.href, lang)}
+            class="block py-2 text-lg font-medium text-fg hover:text-accent"
+          >
+            {t(lang, item.key)}
+          </a>
+          {item.children && (
+            <ul class="pl-3 mt-1 space-y-1">
+              {item.children.map((sub) => (
+                <li>
+                  <a
+                    href={isExternal(sub.href) ? sub.href : localizePath(sub.href, lang)}
+                    target={isExternal(sub.href) ? "_blank" : undefined}
+                    rel={isExternal(sub.href) ? "noreferrer" : undefined}
+                    class="block py-1.5 text-sm text-fg-soft hover:text-fg"
+                  >
+                    — {subLabel(sub)}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ))}
+
+      <div class="mt-6 flex items-center gap-2">
+        <button
+          type="button"
+          data-theme-toggle
+          data-label-dark={t(lang, "theme_dark")}
+          data-label-light={t(lang, "theme_light")}
+          class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-line text-fg-soft text-xs"
+        >
+          <span data-theme-label>{t(lang, "theme_dark")}</span>
+        </button>
+        <a
+          href={switchHref}
+          class="inline-flex items-center text-xs uppercase tracking-[0.18em] border border-line rounded-full overflow-hidden"
+        >
+          <span class={`px-3 py-2 ${lang === "ko" ? "bg-ink-soft text-fg" : "text-fg-mute"}`}>KR</span>
+          <span class={`px-3 py-2 border-l border-line ${lang === "en" ? "bg-ink-soft text-fg" : "text-fg-mute"}`}>EN</span>
+        </a>
+      </div>
+
+      <a
+        href={localizePath("/contact", lang)}
+        class="mt-4 inline-flex items-center justify-center px-4 py-3 rounded-full btn-primary text-sm font-medium"
+      >
+        {t(lang, "inquiry_btn")}
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- Full-menu sitemap overlay (curestream-style).
+     Opens via the MENU button. Shows every category + submenu. -->
+<div
+  id="full-menu"
+  role="dialog"
+  aria-modal="true"
+  aria-label={fullMenuLabel}
+  class="full-menu hidden fixed inset-0 z-[65]"
+>
+  <div class="absolute inset-0 bg-[var(--color-ink)]/95 backdrop-blur-xl" id="full-menu-backdrop"></div>
+
+  <div class="relative h-full flex flex-col">
+    <!-- Top bar inside the overlay -->
+    <div class="container-x flex items-center justify-between h-16 lg:h-20 pt-9">
+      <a href={localizePath("/", lang)} class="text-xl lg:text-2xl font-semibold tracking-[var(--tracking-tight)]">
+        NEXORA
+      </a>
+      <button
+        type="button"
+        id="full-menu-close"
+        aria-label={fullMenuCloseLabel}
+        class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-line-strong text-fg hover:bg-ink-soft transition-colors text-xs uppercase tracking-[0.18em]"
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <span>{fullMenuCloseLabel}</span>
+      </button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto">
+      <div class="container-x py-10 lg:py-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-12">
+          {nav.map((item) => (
+            <div class="min-w-0 full-menu-col">
+              <a
+                href={localizePath(item.href, lang)}
+                class="block text-2xl lg:text-3xl font-semibold tracking-[var(--tracking-tight)] hover:text-accent transition-colors mb-6"
+              >
+                {t(lang, item.key)}
+              </a>
+              {item.children && (
+                <ul class="space-y-3">
+                  {item.children.map((sub) => (
+                    <li>
+                      <a
+                        href={isExternal(sub.href) ? sub.href : localizePath(sub.href, lang)}
+                        target={isExternal(sub.href) ? "_blank" : undefined}
+                        rel={isExternal(sub.href) ? "noreferrer" : undefined}
+                        class="block text-base text-fg-soft hover:text-fg transition-colors"
+                      >
+                        {subLabel(sub)}
+                        {isExternal(sub.href) && (
+                          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" class="inline-block ml-1 -mt-0.5 text-fg-faint"><path d="M7 17L17 7M17 7H8M17 7v9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        )}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <div class="mt-16 pt-10 border-t border-line flex flex-wrap items-center gap-4 text-sm text-fg-mute">
+          <a href={switchHref} class="hover:text-fg transition-colors uppercase tracking-[0.18em] text-xs">
+            {lang === "ko" ? "English" : "한국어"}
+          </a>
+          <span class="text-fg-faint">·</span>
+          <a href={`mailto:hello@nexora.example`} class="hover:text-fg transition-colors">hello@nexora.example</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  :root[data-theme="dark"]  .theme-icon-light,
+  :root[data-theme="light"] .theme-icon-dark { display: none; }
+
+  /* ---- Per-item hover dropdown ---- */
+  .nav-item .dropdown {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition:
+      opacity 0.18s ease 120ms,
+      visibility 0s linear 320ms,
+      transform 0.18s ease 120ms;
+    z-index: 60;
+  }
+  .nav-item .dropdown-panel {
+    background: color-mix(in oklab, var(--color-ink) 97%, transparent);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--color-line-strong);
+    border-radius: 18px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+  }
+  /* The pt-3 gap on .dropdown keeps the mouse "inside" .nav-item while
+     traveling from the trigger down to the panel — prevents flicker. */
+  .nav-item:hover .dropdown,
+  .nav-item:focus-within .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition:
+      opacity 0.22s ease,
+      visibility 0s linear,
+      transform 0.22s ease;
+  }
+  /* Right-edge correction — last two nav items align to the right
+     so the dropdown doesn't clip off-screen. */
+  .nav-item:nth-last-child(-n+2) .dropdown {
+    left: auto;
+    right: 0;
+  }
+  .nav-item:hover .nav-underline,
+  .nav-item:focus-within .nav-underline { transform: scaleX(1); }
+  .dropdown-link:hover { background: color-mix(in oklab, var(--color-fg) 6%, transparent); }
+  .dropdown-link:hover .dropdown-arrow { transform: translateX(3px); color: var(--color-accent); }
+  .dropdown-arrow { transition: transform 0.18s ease, color 0.18s ease; }
+
+  /* Full-menu overlay animation */
+  .full-menu {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .full-menu.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .full-menu .full-menu-col {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .full-menu.is-open .full-menu-col {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .full-menu.is-open .full-menu-col:nth-child(1) { transition-delay:  80ms; }
+  .full-menu.is-open .full-menu-col:nth-child(2) { transition-delay: 160ms; }
+  .full-menu.is-open .full-menu-col:nth-child(3) { transition-delay: 240ms; }
+  .full-menu.is-open .full-menu-col:nth-child(4) { transition-delay: 320ms; }
+  .full-menu.is-open .full-menu-col:nth-child(5) { transition-delay: 400ms; }
+</style>
+
+<script is:inline>
+  // Mobile menu
+  const mBtn = document.getElementById("menu-toggle");
+  const mMenu = document.getElementById("mobile-menu");
+  mBtn?.addEventListener("click", () => mMenu?.classList.toggle("hidden"));
+
+  // Full menu overlay (curestream-style sitemap modal)
+  const fullBtn   = document.getElementById("full-menu-toggle");
+  const fullMenu  = document.getElementById("full-menu");
+  const fullClose = document.getElementById("full-menu-close");
+  const fullBack  = document.getElementById("full-menu-backdrop");
+
+  const openFull = () => {
+    if (!fullMenu) return;
+    fullMenu.classList.remove("hidden");
+    requestAnimationFrame(() => fullMenu.classList.add("is-open"));
+    document.body.style.overflow = "hidden";
+    fullBtn?.setAttribute("aria-expanded", "true");
+  };
+  const closeFull = () => {
+    if (!fullMenu) return;
+    fullMenu.classList.remove("is-open");
+    setTimeout(() => fullMenu.classList.add("hidden"), 300);
+    document.body.style.overflow = "";
+    fullBtn?.setAttribute("aria-expanded", "false");
+  };
+
+  fullBtn?.addEventListener("click", openFull);
+  fullClose?.addEventListener("click", closeFull);
+  fullBack?.addEventListener("click", closeFull);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && fullMenu && !fullMenu.classList.contains("hidden")) closeFull();
+  });
+</script>

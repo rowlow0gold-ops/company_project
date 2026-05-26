@@ -1,0 +1,79 @@
+{
+  "terms": {
+    "title": "Terms of Service",
+    "subtitle": "NEXORA website terms of service",
+    "updated": "Effective May 1, 2026",
+    "sections": [
+      {
+        "heading": "1. Purpose",
+        "body": "These terms govern the use of the NEXORA official website (the \"Site\") operated by NEXORA Systems Inc. (the \"Company\"), including the conditions, procedures, rights, obligations, and responsibilities between the Company and users."
+      },
+      {
+        "heading": "2. Scope of Service",
+        "body": "The Site provides information about the Company's SI, cloud, data, and AI solutions, recruitment, and inquiry intake. All content on the Site is the property of the Company or its content providers; unauthorized reproduction, distribution, or modification is prohibited."
+      },
+      {
+        "heading": "3. User Obligations",
+        "body": "Users must comply with applicable laws, these terms, and notices on the Site. The following actions are prohibited:\n1. Interfering with the normal operation of the Site\n2. Misappropriating others' information or submitting false information\n3. Infringing on the Company's copyrights or other intellectual property"
+      },
+      {
+        "heading": "4. Limitation of Liability",
+        "body": "The Company is not liable for service interruptions caused by force majeure, including natural disasters and communication failures. Information posted on the Site may be changed without prior notice."
+      },
+      {
+        "heading": "5. Governing Law and Disputes",
+        "body": "Matters not specified in these terms are governed by the laws and commercial practices of the Republic of Korea. Any dispute arising from the use of the Site shall be subject to the court of jurisdiction at the Company's head office."
+      }
+    ]
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "subtitle": "NEXORA privacy policy",
+    "updated": "Effective May 1, 2026",
+    "sections": [
+      {
+        "heading": "1. Personal Information Collected",
+        "body": "The Company collects the following items to handle inquiries and recruitment applications.\n- Required: name, email, company name, message content\n- Optional: phone number\n- Automatically collected: IP address, browser info, visit timestamp (anonymous Cloudflare Web Analytics)"
+      },
+      {
+        "heading": "2. Purpose of Collection and Use",
+        "body": "Collected personal information is used only for the following purposes:\n- Responding to inquiries\n- Processing recruitment applications\n- Anonymous statistical analysis for service improvement"
+      },
+      {
+        "heading": "3. Retention Period",
+        "body": "Personal information is destroyed without delay once the purpose of collection has been achieved.\n- Inquiries: 1 year after response is sent\n- Recruitment applications: 1 year after final decision\nWhere required by law, information will be retained for the period stipulated by that law."
+      },
+      {
+        "heading": "4. Disclosure to Third Parties",
+        "body": "The Company does not, as a rule, provide users' personal information to third parties. Exceptions are made only with the user's prior consent or when required by law."
+      },
+      {
+        "heading": "5. Your Rights",
+        "body": "Users may at any time request to view, correct, or delete their personal information, or withdraw consent. Send such requests to hello@nexora.example."
+      },
+      {
+        "heading": "6. Data Protection Officer",
+        "body": "Name: John Doe\nRole: Data Protection Officer\nEmail: privacy@nexora.example"
+      }
+    ]
+  },
+  "email": {
+    "title": "No Unsolicited Email Collection",
+    "subtitle": "We refuse unauthorized email harvesting",
+    "updated": "Effective May 1, 2026",
+    "sections": [
+      {
+        "heading": "Notice",
+        "body": "We refuse the unauthorized collection of email addresses posted on this website using any email harvesting program or other technical device."
+      },
+      {
+        "heading": "Legal Basis",
+        "body": "Violation of this notice is subject to criminal penalties under Article 50-2 of the Korean Act on Promotion of Information and Communications Network Utilization and Information Protection."
+      },
+      {
+        "heading": "Measures",
+        "body": "The Company takes measures to prevent automated email harvesting and will take action under applicable law if such activity is detected."
+      }
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "services": [
+    {
+      "id": "cloud",
+      "label": "01 — Cloud & Infra",
+      "title": "Cloud Infrastructure",
+      "summary": "We design and migrate scalable infrastructure on AWS, Azure, and GCP. From multi-cloud governance to cost optimization, we own the full stack.",
+      "image": "https://images.pexels.com/photos/1148820/pexels-photo-1148820.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "tags": ["AWS", "Azure", "GCP", "Kubernetes", "Terraform"]
+    },
+    {
+      "id": "data-ai",
+      "label": "02 — Data & AI",
+      "title": "Data · AI Platform",
+      "summary": "From data lakehouse to MLOps pipelines, we build the infrastructure that automates decisions. We help teams adopt internal LLM assistants safely.",
+      "image": "https://images.pexels.com/photos/8438918/pexels-photo-8438918.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "tags": ["Lakehouse", "MLOps", "LLM", "RAG", "Vector DB"]
+    },
+    {
+      "id": "si",
+      "label": "03 — Enterprise SI",
+      "title": "Enterprise Systems",
+      "summary": "ERP, CRM, groupware — we design and build integrated business systems. Legacy modernization and microservice decomposition come built in.",
+      "image": "https://images.pexels.com/photos/3184325/pexels-photo-3184325.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "tags": ["ERP", "CRM", "SAP", "Modernization"]
+    },
+    {
+      "id": "ops",
+      "label": "04 — Operate",
+      "title": "Operations & Maintenance",
+      "summary": "24/7 monitoring, incident response, and SLA-backed operations. SRE practices keep availability and cost balanced.",
+      "image": "https://images.pexels.com/photos/4218714/pexels-photo-4218714.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "tags": ["SRE", "Observability", "SLA", "Incident"]
+    }
+  ]
+}

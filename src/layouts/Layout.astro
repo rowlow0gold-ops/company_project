@@ -1,0 +1,84 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import DemoBanner from "../components/DemoBanner.astro";
+import IntroLoader from "../components/IntroLoader.astro";
+import PolicyPopup from "../components/PolicyPopup.astro";
+import { getLang, getSite, type Lang } from "../lib/i18n";
+
+interface Props {
+  title?: string;
+  description?: string;
+  transparentHeader?: boolean;
+  /** Optional override; defaults to detection from URL. */
+  lang?: Lang;
+}
+
+const detected = getLang(Astro.url);
+const {
+  title,
+  description,
+  transparentHeader = false,
+  lang = detected,
+} = Astro.props;
+
+const site = getSite(lang);
+const desc = description ?? site.description;
+
+const pageTitle = title
+  ? `${title} — ${site.name}`
+  : `${site.name} · ${site.tagline_ko}`;
+---
+
+<!doctype html>
+<html lang={lang} data-theme="dark" data-lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={desc} />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={desc} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
+    />
+
+    <!-- Pre-paint theme + lang setter: prevents flash by running before <body>. -->
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem("nexora-theme");
+          var theme = stored === "light" || stored === "dark"
+            ? stored
+            : (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (_) {}
+      })();
+    </script>
+
+    <title>{pageTitle}</title>
+  </head>
+  <body class="bg-[var(--color-ink)] text-fg">
+    <IntroLoader lang={lang} />
+    <DemoBanner lang={lang} />
+    <Header transparent={transparentHeader} lang={lang} />
+    <main>
+      <slot />
+    </main>
+    <Footer lang={lang} />
+
+    <PolicyPopup name="terms"   lang={lang} />
+    <PolicyPopup name="privacy" lang={lang} />
+    <PolicyPopup name="email"   lang={lang} />
+
+    <script>
+      import "../scripts/ui.ts";
+    </script>
+  </body>
+</html>

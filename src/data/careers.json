@@ -1,0 +1,15 @@
+{
+  "eyebrow": "Careers",
+  "hero_title": "함께 시스템을 만들어갈 동료.",
+  "hero_body": "넥소라는 자율과 책임이 균형 잡힌 작은 조직입니다. 우리는 좋은 시스템을 만드는 일에 진심인 사람을 찾습니다.",
+  "all_openings_label": "잡코리아에서 전체 채용 보기",
+  "all_openings_url": "https://www.jobkorea.co.kr/Search/?stext=NEXORA",
+  "external_label": "지원 페이지로 이동",
+  "positions": [
+    { "team": "Cloud Engineering", "role": "Senior Cloud Architect (AWS/Azure)", "location": "서울 · 정규직", "url": "https://www.jobkorea.co.kr/Search/?stext=NEXORA+Cloud+Architect" },
+    { "team": "Data & AI",         "role": "MLOps Engineer",                     "location": "서울 · 정규직", "url": "https://www.jobkorea.co.kr/Search/?stext=NEXORA+MLOps" },
+    { "team": "Enterprise SI",     "role": "Project Manager (SI / Finance)",     "location": "서울 · 정규직", "url": "https://www.saramin.co.kr/zf_user/search?searchword=NEXORA+PM" },
+    { "team": "SRE / Operate",     "role": "Site Reliability Engineer",          "location": "대구 · 정규직", "url": "https://www.jobkorea.co.kr/Search/?stext=NEXORA+SRE" },
+    { "team": "Sales",             "role": "Enterprise Account Executive",       "location": "서울 · 정규직", "url": "https://www.wanted.co.kr/search?query=NEXORA" }
+  ]
+}

@@ -1,0 +1,86 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getLang, getNews, localizePath } from "../../lib/i18n";
+
+export async function getStaticPaths() {
+  return [
+    { params: { category: "press" } },
+    { params: { category: "conference" } },
+    { params: { category: "award" } },
+  ];
+}
+
+const lang = getLang(Astro.url);
+const news = getNews(lang);
+const category = Astro.params.category as string;
+
+const titles = {
+  ko: { press: "보도자료", conference: "전시회 · 컨퍼런스", award: "수상" },
+  en: { press: "Press",    conference: "Conference",        award: "Awards" },
+} as const;
+
+const heroTitle = titles[lang][category as "press" | "conference" | "award"];
+const items = news.items.filter((n) => n.category === category);
+
+const categoryImages: Record<string, string> = {
+  press:      "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?auto=compress&cs=tinysrgb&w=1400",
+  conference: "https://images.pexels.com/photos/1181676/pexels-photo-1181676.jpeg?auto=compress&cs=tinysrgb&w=1400",
+  award:      "https://images.pexels.com/photos/5380642/pexels-photo-5380642.jpeg?auto=compress&cs=tinysrgb&w=1400",
+};
+const heroImage = categoryImages[category];
+
+const formatDate = (iso: string) => {
+  const d = new Date(iso);
+  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")}`;
+};
+---
+
+<Layout title={heroTitle} lang={lang}>
+  <section class="pt-40 pb-20 lg:pt-52 lg:pb-28 border-b border-line">
+    <div class="container-x grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+      <div class="lg:col-span-6">
+        <div class="text-[11px] uppercase tracking-[0.28em] text-accent mb-6">News & Media</div>
+        <h1 class="text-[clamp(2.5rem,5vw,4.5rem)] font-semibold leading-[1.05] tracking-[var(--tracking-tighter)] reveal">
+          {heroTitle}
+        </h1>
+      </div>
+      {heroImage && (
+        <div class="lg:col-span-6 reveal" style="transition-delay:160ms">
+          <div class="aspect-[5/4] overflow-hidden rounded-2xl border border-line">
+            <img src={heroImage} alt={heroTitle} class="w-full h-full object-cover" loading="eager" decoding="async" />
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="py-16 lg:py-24">
+    <div class="container-x">
+      {items.length ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-line border border-line" data-reveal-children>
+          {items.map((n) => (
+            <a href={n.link} class="group bg-ink p-8 lg:p-10 hover:bg-ink-soft transition-colors flex flex-col gap-5 min-h-[18rem]">
+              <div class="flex items-center gap-3 text-[11px] uppercase tracking-[0.22em]">
+                <span class="text-accent">{n.category_label}</span>
+                <span class="text-fg-mute">{formatDate(n.date)}</span>
+              </div>
+              <h3 class="text-xl lg:text-2xl font-semibold leading-[1.25] tracking-[var(--tracking-tight)] text-balance">{n.title}</h3>
+              <p class="text-sm text-fg-65 leading-relaxed line-clamp-3 mt-auto">{n.excerpt}</p>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="text-fg-mute">{lang === "en" ? "No items yet." : "등록된 항목이 없습니다."}</p>
+      )}
+
+      <div class="mt-12">
+        <a
+          href={localizePath("/news", lang)}
+          class="inline-flex items-center gap-2 text-sm text-fg-soft hover:text-fg transition-colors"
+        >
+          ← {lang === "en" ? "All news" : "전체 소식 보기"}
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

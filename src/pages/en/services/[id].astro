@@ -1,0 +1,82 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { getLang, getServices, localizePath, t } from "../../../lib/i18n";
+
+export async function getStaticPaths() {
+  const ko = (await import("../../../data/services.json")).default;
+  return ko.services.map((s) => ({ params: { id: s.id } }));
+}
+
+const lang = getLang(Astro.url);
+const services = getServices(lang);
+const svc = services.services.find((s) => s.id === Astro.params.id);
+if (!svc) throw new Error(`Unknown service id: ${Astro.params.id}`);
+
+const others = services.services.filter((s) => s.id !== svc.id);
+---
+
+<Layout title={svc.title} lang={lang}>
+  <section class="pt-40 pb-20 lg:pt-52 lg:pb-28 border-b border-line">
+    <div class="container-x">
+      <div class="text-[11px] uppercase tracking-[0.28em] text-accent mb-6">{svc.label}</div>
+      <h1 class="text-[clamp(2.5rem,6vw,5.5rem)] font-semibold leading-[1.05] tracking-[var(--tracking-tighter)] max-w-4xl text-balance reveal">
+        {svc.title}
+      </h1>
+      <p class="mt-10 max-w-2xl text-lg text-fg-70 leading-relaxed reveal" style="transition-delay:120ms">
+        {svc.summary}
+      </p>
+      <div class="mt-10 flex flex-wrap gap-2 reveal" style="transition-delay:240ms">
+        {svc.tags.map((tag) => (
+          <span class="text-xs px-3 py-1.5 rounded-full border border-line-strong text-fg-soft">{tag}</span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 lg:py-32 border-b border-line">
+    <div class="container-x grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <div class="lg:col-span-4 reveal">
+        <div class="text-[11px] uppercase tracking-[0.28em] text-fg-mute mb-4">Approach</div>
+        <h2 class="text-3xl lg:text-4xl font-semibold tracking-[var(--tracking-tight)]">
+          {lang === "en" ? "How we deliver." : "어떻게 일하는가."}
+        </h2>
+      </div>
+      <div class="lg:col-span-8 text-fg-70 leading-[1.85] space-y-6 text-lg" data-reveal-children>
+        <p>{svc.summary}</p>
+        <p>
+          {lang === "en"
+            ? "Each engagement starts with a discovery phase to map the existing system and business context, then moves into design, build, and a managed handover. We document everything as code where possible, so your team can continue without us."
+            : "모든 프로젝트는 기존 시스템과 비즈니스 컨텍스트를 정리하는 디스커버리 단계로 시작합니다. 이후 설계 · 구축을 거치고, 운영 인수인계까지 책임집니다. 가능한 모든 것을 코드로 문서화하여, 고객사가 자체적으로 이어서 운영할 수 있도록 합니다."}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 lg:py-32">
+    <div class="container-x">
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12 reveal">
+        <h2 class="text-2xl lg:text-3xl font-semibold tracking-[var(--tracking-tight)]">
+          {lang === "en" ? "Other services" : "다른 서비스"}
+        </h2>
+        <a
+          href={localizePath("/services", lang)}
+          class="inline-flex items-center gap-2 text-sm text-fg-soft hover:text-fg transition-colors"
+        >
+          {t(lang, "services_section_cta")}
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-line border border-line" data-reveal-children>
+        {others.map((o) => (
+          <a
+            href={localizePath(`/services/${o.id}`, lang)}
+            class="group bg-ink p-8 hover:bg-ink-soft transition-colors flex flex-col gap-3 min-h-[12rem]"
+          >
+            <div class="text-[11px] uppercase tracking-[0.22em] text-fg-mute">{o.label}</div>
+            <h3 class="text-xl lg:text-2xl font-semibold tracking-[var(--tracking-tight)] mt-auto">{o.title}</h3>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

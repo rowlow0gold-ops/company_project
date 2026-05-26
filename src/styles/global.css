@@ -1,0 +1,245 @@
+@import "tailwindcss";
+
+/* ---- Theme tokens ---- */
+:root,
+[data-theme="dark"] {
+  --color-ink:           #0A0E1A;
+  --color-ink-soft:      #14182A;
+  --color-fg:            #FFFFFF;
+  --color-fg-soft:       rgba(255, 255, 255, 0.85);
+  --color-fg-70:         rgba(255, 255, 255, 0.7);
+  --color-fg-65:         rgba(255, 255, 255, 0.65);
+  --color-fg-mute:       rgba(255, 255, 255, 0.55);
+  --color-fg-faint:      rgba(255, 255, 255, 0.4);
+  --color-line:          rgba(255, 255, 255, 0.08);
+  --color-line-strong:   rgba(255, 255, 255, 0.16);
+  --color-accent:        #4F7CFF;
+  --color-accent-glow:   rgba(79, 124, 255, 0.18);
+  --color-btn-bg:        #FFFFFF;
+  --color-btn-fg:        #0A0E1A;
+  --hero-gradient:       linear-gradient(135deg, #0A0E1A 0%, #0E1530 45%, #1B2566 100%);
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --color-ink:           #FFFFFF;
+  --color-ink-soft:      #F4F5F8;
+  --color-fg:            #0A0E1A;
+  --color-fg-soft:       rgba(10, 14, 26, 0.85);
+  --color-fg-70:         rgba(10, 14, 26, 0.7);
+  --color-fg-65:         rgba(10, 14, 26, 0.65);
+  --color-fg-mute:       rgba(10, 14, 26, 0.55);
+  --color-fg-faint:      rgba(10, 14, 26, 0.38);
+  --color-line:          rgba(10, 14, 26, 0.1);
+  --color-line-strong:   rgba(10, 14, 26, 0.22);
+  --color-accent:        #2C5BD5;
+  --color-accent-glow:   rgba(44, 91, 213, 0.12);
+  --color-btn-bg:        #0A0E1A;
+  --color-btn-fg:        #FFFFFF;
+  --hero-gradient:       linear-gradient(135deg, #F4F5F8 0%, #E6ECFB 45%, #CFD9F5 100%);
+  color-scheme: light;
+}
+
+@theme {
+  --font-sans:
+    "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont,
+    "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", Roboto, sans-serif;
+  --font-display:
+    "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont,
+    "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  --tracking-tight:   -0.02em;
+  --tracking-tighter: -0.035em;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background: var(--color-ink);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background: var(--color-ink);
+    color: var(--color-fg);
+    overflow-x: hidden;
+    transition: background-color 0.35s ease, color 0.35s ease;
+  }
+  /* Korean text — never break inside a 어절 (word + particle).
+     Without this, the browser will split "비즈니스" across two lines. */
+  html[lang="ko"] {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+  html[lang="ko"] h1,
+  html[lang="ko"] h2,
+  html[lang="ko"] h3,
+  html[lang="ko"] h4 {
+    word-break: keep-all;
+    line-break: strict;
+  }
+  ::selection {
+    background: var(--color-accent);
+    color: #FFFFFF;
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty  { text-wrap: pretty; }
+
+  .container-x {
+    width: 100%;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  @media (min-width: 1024px) {
+    .container-x { padding-left: 2.5rem; padding-right: 2.5rem; }
+  }
+
+  /* Semantic theme-aware text utilities. Prefer these over text-white. */
+  .text-fg        { color: var(--color-fg); }
+  .text-fg-soft   { color: var(--color-fg-soft); }
+  .text-fg-70     { color: var(--color-fg-70); }
+  .text-fg-65     { color: var(--color-fg-65); }
+  .text-fg-mute   { color: var(--color-fg-mute); }
+  .text-fg-faint  { color: var(--color-fg-faint); }
+  .text-accent    { color: var(--color-accent); }
+
+  .bg-ink         { background-color: var(--color-ink); }
+  .bg-ink-soft    { background-color: var(--color-ink-soft); }
+  .bg-fg          { background-color: var(--color-fg); }
+  .bg-fg-faint    { background-color: var(--color-fg-faint); }
+
+  .border-line         { border-color: var(--color-line); }
+  .border-line-strong  { border-color: var(--color-line-strong); }
+
+  .btn-primary {
+    background: var(--color-btn-bg);
+    color: var(--color-btn-fg);
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+  .btn-primary:hover {
+    background: var(--color-accent);
+    color: #FFFFFF;
+  }
+  .btn-ghost {
+    border: 1px solid var(--color-line-strong);
+    color: var(--color-fg);
+    transition: border-color 0.25s ease, color 0.25s ease;
+  }
+  .btn-ghost:hover {
+    border-color: var(--color-fg);
+  }
+
+  .grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+}
+
+/* ---- Scroll reveal ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s cubic-bezier(0.22, 0.61, 0.36, 1),
+              transform 0.9s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+[data-reveal-children] > * {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.8s cubic-bezier(0.22, 0.61, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+[data-reveal-children].is-visible > * { opacity: 1; transform: translateY(0); }
+[data-reveal-children].is-visible > *:nth-child(1) { transition-delay: 80ms; }
+[data-reveal-children].is-visible > *:nth-child(2) { transition-delay: 180ms; }
+[data-reveal-children].is-visible > *:nth-child(3) { transition-delay: 280ms; }
+[data-reveal-children].is-visible > *:nth-child(4) { transition-delay: 380ms; }
+[data-reveal-children].is-visible > *:nth-child(5) { transition-delay: 480ms; }
+[data-reveal-children].is-visible > *:nth-child(6) { transition-delay: 580ms; }
+[data-reveal-children].is-visible > *:nth-child(7) { transition-delay: 680ms; }
+[data-reveal-children].is-visible > *:nth-child(8) { transition-delay: 780ms; }
+
+.reveal-hero {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 1.2s cubic-bezier(0.16, 0.84, 0.36, 1),
+              transform 1.2s cubic-bezier(0.16, 0.84, 0.36, 1);
+}
+.reveal-hero.is-visible { opacity: 1; transform: translateY(0); }
+
+.video-fade-in { opacity: 0; transition: opacity 1.4s ease-out; }
+.video-fade-in.is-ready { opacity: 1; }
+
+.header-slide {
+  transform: translateY(-12px);
+  opacity: 0;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.header-slide.is-ready { opacity: 1; transform: translateY(0); }
+
+.site-header.is-scrolled {
+  background-color: color-mix(in oklab, var(--color-ink) 92%, transparent) !important;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-line) !important;
+}
+
+/* ---- Hero section: always cinematic-dark, white text. ----
+   Overrides the theme-aware fg colors so the hero stays legible
+   in both light and dark site themes. */
+.hero-section {
+  color: #FFFFFF;
+  --color-fg: #FFFFFF;
+  --color-fg-soft: rgba(255, 255, 255, 0.85);
+  --color-fg-70:   rgba(255, 255, 255, 0.7);
+  --color-fg-65:   rgba(255, 255, 255, 0.65);
+  --color-fg-mute: rgba(255, 255, 255, 0.55);
+  --color-fg-faint:rgba(255, 255, 255, 0.4);
+  --color-line:        rgba(255, 255, 255, 0.12);
+  --color-line-strong: rgba(255, 255, 255, 0.3);
+  --color-btn-bg: #FFFFFF;
+  --color-btn-fg: #0A0E1A;
+}
+.hero-section h1,
+.hero-section h2,
+.hero-section h3 { color: #FFFFFF; }
+.hero-section { background: #0A0E1A; }
+
+/* ---- Hero aperture open: the video AND the text reveal from a horizontal
+   slit at the middle of the screen, growing toward the top and bottom edges.
+   Triggered by JS (ui.ts) once the intro loader is dismissed. */
+.hero-aperture {
+  clip-path: inset(50% 0 50% 0);
+  transition: clip-path 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+  will-change: clip-path;
+}
+.hero-aperture.is-open { clip-path: inset(0 0 0 0); }
+@media (prefers-reduced-motion: reduce) {
+  .hero-aperture { transition: none; clip-path: inset(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-hero,
+  [data-reveal-children] > *,
+  .video-fade-in,
+  .header-slide {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
